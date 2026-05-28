@@ -233,7 +233,96 @@
       align-self: flex-start;
       padding-top: 10px;
     }
+/* ── Registry Section ── */
+.registry-section {
+  position: relative;
+  z-index: 1;
+  padding: 30px 24px 80px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
 
+.registry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.registry-card {
+  background: white;
+  border-top: 4px solid var(--blue);
+  border-radius: 3px;
+  padding: 36px 28px;
+  box-shadow: 0 2px 16px rgba(45,74,138,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.registry-card:nth-child(2) {
+  border-top-color: var(--red);
+}
+
+.registry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(45,74,138,0.14);
+}
+
+.registry-icon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+}
+
+.registry-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+
+.registry-card:nth-child(2) .registry-name {
+  color: var(--red);
+}
+
+.registry-copy {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--light);
+  margin-bottom: 24px;
+}
+
+.registry-btn {
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 28px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.registry-btn.amazon {
+  background: var(--blue);
+  color: white;
+}
+
+.registry-btn.amazon:hover {
+  background: var(--ltblue);
+  transform: translateY(-2px);
+}
+
+.registry-btn.macys {
+  background: var(--red);
+  color: white;
+}
+
+.registry-btn.macys:hover {
+  background: #d63b4f;
+  transform: translateY(-2px);
+}
     /* ── Cards ── */
     .details-section {
       position: relative;
@@ -279,7 +368,75 @@
       color: var(--light);
       line-height: 1.9;
     }
+<!-- ── Registries ── -->
+<section class="registry-section">
+  <p class="section-eyebrow">★ Our Registries ★</p>
 
+  <div class="registry-grid">
+
+    <!-- Amazon Registry -->
+    <div class="registry-card">
+      <div class="registry-icon">📦</div>
+
+      <h3 class="registry-name">Amazon Registry</h3>
+
+      <p class="registry-copy">
+        Browse our Amazon wedding registry for gifts to help us begin
+        our next adventure together.
+      </p>
+
+      <a
+        class="registry-btn amazon"
+        href="https://www.amazon.com/wedding/guest-view/1X95VYD6VK8ZW"
+        target="_blank"
+        rel="noopener"
+      >
+        View Amazon Registry
+      </a>
+    </div>
+
+    <!-- Macy's Registry -->
+    <div class="registry-card">
+      <div class="registry-icon">🛍️</div>
+
+      <h3 class="registry-name">Macy's Registry</h3>
+
+      <p class="registry-copy">
+        More registry details coming soon.
+      </p>
+
+      <!-- Replace this button later with your Macy's link or embed -->
+      <a
+        class="registry-btn macys"
+        href="#"
+        onclick="return false;"
+      >
+        Coming Soon
+      </a>
+    </div>
+
+  </div>
+</section>
+    <!-- Macy's Registry -->
+<div class="registry-card">
+  <div class="registry-icon">🛍️</div>
+
+  <h3 class="registry-name">Macy's Registry</h3>
+
+  <p class="registry-copy">
+    Explore our Macy’s wedding registry filled with home favorites,
+    kitchen essentials, and meaningful gifts for our new life together.
+  </p>
+
+  <a
+    class="registry-btn macys"
+    href="https://www.macys.com/registry/Larisa-Schumann-John-Kehr/1334256"
+    target="_blank"
+    rel="noopener"
+  >
+    View Macy's Registry
+  </a>
+</div>
     /* ── Gift / Venmo ── */
     .gift-section {
       position: relative;
@@ -571,6 +728,58 @@
       <div class="card-title">RSVP</div>
       <div class="card-body"><a href="tel:8014277887" style="color:var(--red);text-decoration:none;font-weight:600;">801-427-7887</a><br/>VM or Text<br/>We'd love to hear<br/>from you!</div>
     </div>
+  </div>
+</section>
+
+
+<!-- ── Registries ── -->
+<section class="registry-section">
+  <p class="section-eyebrow">★ Our Registries ★</p>
+
+  <div class="registry-grid">
+
+    <!-- Amazon Registry -->
+    <div class="registry-card">
+      <div class="registry-icon">📦</div>
+
+      <h3 class="registry-name">Amazon Registry</h3>
+
+      <p class="registry-copy">
+        Browse our Amazon wedding registry for gifts to help us begin
+        our next adventure together.
+      </p>
+
+      <a
+        class="registry-btn amazon"
+        href="https://www.amazon.com/wedding/guest-view/1X95VYD6VK8ZW"
+        target="_blank"
+        rel="noopener"
+      >
+        View Amazon Registry
+      </a>
+    </div>
+
+    <!-- Macy's Registry -->
+    <div class="registry-card">
+      <div class="registry-icon">🛍️</div>
+
+      <h3 class="registry-name">Macy's Registry</h3>
+
+      <p class="registry-copy">
+        Explore our Macy’s wedding registry filled with home favorites,
+        kitchen essentials, and meaningful gifts for our new life together.
+      </p>
+
+      <a
+        class="registry-btn macys"
+        href="https://www.macys.com/registry/Larisa-Schumann-John-Kehr/1334256"
+        target="_blank"
+        rel="noopener"
+      >
+        View Macy's Registry
+      </a>
+    </div>
+
   </div>
 </section>
 
