@@ -622,37 +622,125 @@
 </footer>
 
 <script>
+
+  // ── Fireworks (first visit only) ────────────── new
+
+  const SEEN = 'larisaandjohn_seen';
+
+  if (!localStorage.getItem(SEEN)) {
+
+    localStorage.setItem(SEEN, '1');
+
+    const fw = document.createElement('canvas');
+
+    fw.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;transition:opacity 0.8s';
+
+    fw.width = window.innerWidth; fw.height = window.innerHeight;
+
+    document.body.appendChild(fw);
+
+    const fc = fw.getContext('2d');
+
+    const W = fw.width, H = fw.height;
+
+    const PAL = ['#ff3333','#ffffff','#3355ff'];
+
+    let pts = [], rks = [];
+
+    function mkP(x,y,c,a,s){return{x,y,c,vx:Math.cos(a)*s,vy:Math.sin(a)*s,al:1,dc:Math.random()*.018+.014,sz:Math.random()*3+1.5}}
+
+    function mkR(x){return{x:x??W*.15+Math.random()*W*.7,y:H+10,ty:H*.08+Math.random()*H*.4,sp:Math.random()*3+11,tr:[]}}
+
+    function explode(x,y){for(let i=0;i<110;i++){pts.push(mkP(x,y,PAL[i%3],(i/110)*Math.PI*2,Math.random()*5+2))}}
+
+    function loop(){
+
+      requestAnimationFrame(loop);
+
+      fc.fillStyle='rgba(0,0,0,.15)'; fc.fillRect(0,0,W,H);
+
+      rks=rks.filter(r=>{r.tr.push({x:r.x,y:r.y});r.tr.length>10&&r.tr.shift();r.y-=r.sp;
+
+        r.tr.forEach((t,i)=>{fc.beginPath();fc.arc(t.x,t.y,(i/r.tr.length)*2,0,Math.PI*2);fc.fillStyle=`rgba(255,240,150,${(i/r.tr.length)*.6})`;fc.fill()});
+
+        if(r.y<=r.ty){explode(r.x,r.y);return false;} return true;});
+
+      pts=pts.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.06;p.al-=p.dc;
+
+        fc.beginPath();fc.arc(p.x,p.y,p.sz,0,Math.PI*2);fc.globalAlpha=Math.max(0,p.al);fc.fillStyle=p.c;fc.fill();fc.globalAlpha=1;return p.al>0;});
+
+    }
+
+    [0,120,240,360,480,600,720,840,960,1100].forEach(t=>setTimeout(()=>rks.push(mkR()),t));
+
+    loop();
+
+    setTimeout(()=>{ fw.style.opacity='0'; setTimeout(()=>fw.remove(),900); }, 2600);
+
+  }
+
+  // ─────────────────────────────────────────────
+
+ 
+
   // ── Countdown ──────────────────────────────────
+
   const WEDDING_DATE = new Date('2026-07-02T13:00:00');
 
+ 
+
   function updateCountdown() {
+
     const diff = WEDDING_DATE - new Date();
+
     if (diff <= 0) {
+
       document.querySelector('.countdown-section').innerHTML =
+
         '<p class="section-eyebrow" style="font-size:1.1rem;color:var(--red);">Today is the day! 🎇</p>';
+
       return;
+
     }
+
     const days  = Math.floor(diff / 864e5);
+
     const hours = Math.floor((diff % 864e5) / 36e5);
+
     const mins  = Math.floor((diff % 36e5) / 6e4);
+
     const secs  = Math.floor((diff % 6e4) / 1e3);
+
     document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+
     document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,2,'0');
+
     document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+
   }
+
   updateCountdown();
+
   setInterval(updateCountdown, 1000);
 
+ 
+
   // ── QR Code ────────────────────────────────────
+
   new QRCode(document.getElementById('qrcode'), {
+
     text: 'https://venmo.com/Larisa-Schumann',
-    width: 180,
-    height: 180,
-    colorDark: '#2d4a8a',
-    colorLight: '#ffffff',
+
+    width: 180, height: 180,
+
+    colorDark: '#2d4a8a', colorLight: '#ffffff',
+
     correctLevel: QRCode.CorrectLevel.H
+
   });
+
 </script>
 </body>
 </html>
