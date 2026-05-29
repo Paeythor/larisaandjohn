@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Larisa & John — Red, White, & We Do!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <style>
     :root {
-      --red:   #c0273a;
-      --blue:  #2d4a8a;
-      --ltblue:#5b7ec5;
+      --red: #c0273a;
+      --blue: #2d4a8a;
+      --ltblue: #5b7ec5;
       --white: #ffffff;
       --offwhite: #f7f7fb;
-      --text:  #1a1a2e;
+      --text: #1a1a2e;
       --light: #6b7a9e;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       background: var(--offwhite);
@@ -26,7 +33,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Firework SVG canvas (fixed, decorative) ── */
     .fireworks-bg {
       position: fixed;
       inset: 0;
@@ -35,7 +41,6 @@
       overflow: hidden;
     }
 
-    /* ── Hero ── */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -55,25 +60,24 @@
       animation: fadeUp 0.9s ease 0.2s forwards;
     }
 
-    .tagline-red {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(2.8rem, 9vw, 5.5rem);
-      color: var(--red);
-      display: block;
-    }
-
-    .tagline-white {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(2.8rem, 9vw, 5.5rem);
-      color: var(--ltblue);
-      display: block;
-    }
-
+    .tagline-red,
+    .tagline-white,
     .tagline-wedo {
       font-family: 'Dancing Script', cursive;
       font-size: clamp(2.8rem, 9vw, 5.5rem);
-      color: var(--blue);
       display: block;
+    }
+
+    .tagline-red {
+      color: var(--red);
+    }
+
+    .tagline-white {
+      color: var(--ltblue);
+    }
+
+    .tagline-wedo {
+      color: var(--blue);
     }
 
     .invite-line {
@@ -95,10 +99,9 @@
       line-height: 1;
       opacity: 0;
       animation: fadeUp 0.9s ease 0.7s forwards;
-      text-shadow: 2px 2px 0px rgba(45,74,138,0.12);
+      text-shadow: 2px 2px 0 rgba(45, 74, 138, 0.12);
     }
 
-    /* ── Stars row ── */
     .stars-row {
       display: flex;
       gap: 12px;
@@ -114,10 +117,16 @@
       height: 18px;
       fill: var(--ltblue);
     }
-    .star.red { fill: var(--red); }
-    .star.big { width: 26px; height: 26px; }
 
-    /* ── Details block ── */
+    .star.red {
+      fill: var(--red);
+    }
+
+    .star.big {
+      width: 26px;
+      height: 26px;
+    }
+
     .details-hero {
       opacity: 0;
       animation: fadeUp 0.9s ease 1.1s forwards;
@@ -166,24 +175,12 @@
       letter-spacing: 0.06em;
     }
 
-    /* ── Divider ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: min(320px, 80vw);
-      margin: 28px auto;
-    }
-    .div-line { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--ltblue), transparent); }
-    .div-star-wrap { display: flex; gap: 5px; }
-
-    /* ── Countdown ── */
     .countdown-section {
       position: relative;
       z-index: 1;
       padding: 60px 24px;
       text-align: center;
-      background: linear-gradient(180deg, transparent, rgba(45,74,138,0.05) 40%, rgba(45,74,138,0.05) 60%, transparent);
+      background: linear-gradient(180deg, transparent, rgba(45, 74, 138, 0.05) 40%, rgba(45, 74, 138, 0.05) 60%, transparent);
     }
 
     .section-eyebrow {
@@ -233,97 +230,7 @@
       align-self: flex-start;
       padding-top: 10px;
     }
-/* ── Registry Section ── */
-.registry-section {
-  position: relative;
-  z-index: 1;
-  padding: 30px 24px 80px;
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
 
-.registry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.registry-card {
-  background: white;
-  border-top: 4px solid var(--blue);
-  border-radius: 3px;
-  padding: 36px 28px;
-  box-shadow: 0 2px 16px rgba(45,74,138,0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.registry-card:nth-child(2) {
-  border-top-color: var(--red);
-}
-
-.registry-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(45,74,138,0.14);
-}
-
-.registry-icon {
-  font-size: 2.2rem;
-  margin-bottom: 16px;
-}
-
-.registry-name {
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 16px;
-}
-
-.registry-card:nth-child(2) .registry-name {
-  color: var(--red);
-}
-
-.registry-copy {
-  font-size: 0.9rem;
-  line-height: 1.9;
-  color: var(--light);
-  margin-bottom: 24px;
-}
-
-.registry-btn {
-  display: inline-block;
-  text-decoration: none;
-  padding: 14px 28px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-}
-
-.registry-btn.amazon {
-  background: var(--blue);
-  color: white;
-}
-
-.registry-btn.amazon:hover {
-  background: var(--ltblue);
-  transform: translateY(-2px);
-}
-
-.registry-btn.macys {
-  background: var(--red);
-  color: white;
-}
-
-.registry-btn.macys:hover {
-  background: #d63b4f;
-  transform: translateY(-2px);
-}
-    /* ── Cards ── */
     .details-section {
       position: relative;
       z-index: 1;
@@ -344,15 +251,32 @@
       border-radius: 3px;
       padding: 32px 24px;
       text-align: center;
-      box-shadow: 0 2px 16px rgba(45,74,138,0.08);
+      box-shadow: 0 2px 16px rgba(45, 74, 138, 0.08);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .card:nth-child(2) { border-top-color: var(--red); }
-    .card:nth-child(3) { border-top-color: var(--ltblue); }
-    .card:nth-child(4) { border-top-color: var(--red); }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(45,74,138,0.14); }
 
-    .card-icon { font-size: 2rem; margin-bottom: 12px; }
+    .card:nth-child(2) {
+      border-top-color: var(--red);
+    }
+
+    .card:nth-child(3) {
+      border-top-color: var(--ltblue);
+    }
+
+    .card:nth-child(4) {
+      border-top-color: var(--red);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(45, 74, 138, 0.14);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
     .card-title {
       font-weight: 700;
       font-size: 0.75rem;
@@ -361,142 +285,191 @@
       color: var(--blue);
       margin-bottom: 12px;
     }
-    .card:nth-child(2) .card-title { color: var(--red); }
+
+    .card:nth-child(2) .card-title {
+      color: var(--red);
+    }
+
     .card-body {
       font-size: 0.88rem;
       font-weight: 300;
       color: var(--light);
       line-height: 1.9;
     }
-/* ── Gift + Registry Combined ───────────────────── */
 
-.gift-registry-section {
-  position: relative;
-  z-index: 1;
-  padding: 70px 24px 90px;
-  max-width: 1400px;
-  margin: 0 auto;
-  text-align: center;
-}
+    .registry-section {
+      position: relative;
+      z-index: 1;
+      padding: 30px 24px 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-.gift-registry-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 28px;
-  align-items: stretch;
-}
+    .registry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      align-items: stretch;
+    }
 
-.gift-registry-grid .registry-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    .registry-card,
+    .venmo-center-card {
+      background: white;
+      border-radius: 3px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 16px rgba(45, 74, 138, 0.08);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-.venmo-center-card {
-  background: white;
-  border-top: 4px solid var(--ltblue);
-  border-radius: 3px;
-  padding: 36px 28px;
-  box-shadow: 0 2px 16px rgba(45,74,138,0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    .registry-card {
+      border-top: 4px solid var(--blue);
+    }
 
-.gift-heading {
-  font-family: 'Dancing Script', cursive;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  color: var(--blue);
-  margin-bottom: 16px;
-}
+    .registry-card:nth-child(2) {
+      border-top-color: var(--red);
+    }
 
-.gift-sub {
-  font-size: 0.92rem;
-  line-height: 1.9;
-  color: var(--light);
-  max-width: 420px;
-  margin-bottom: 30px;
-}
+    .registry-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(45, 74, 138, 0.14);
+    }
 
-.qr-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
+    .registry-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
 
-.qr-frame {
-  position: relative;
-  background: white;
-  padding: 16px;
-  border: 2px solid rgba(45,74,138,0.12);
-  box-shadow: 0 4px 18px rgba(45,74,138,0.08);
-}
+    .registry-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
 
-.qr-star {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-}
+    .registry-card:nth-child(2) .registry-name {
+      color: var(--red);
+    }
 
-.qr-star.tl { top: -8px; left: -8px; }
-.qr-star.tr { top: -8px; right: -8px; }
-.qr-star.bl { bottom: -8px; left: -8px; }
-.qr-star.br { bottom: -8px; right: -8px; }
+    .registry-copy {
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: var(--light);
+      margin-bottom: 24px;
+    }
 
-.venmo-handle {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  color: var(--blue);
-}
+    .registry-btn,
+    .venmo-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
 
-.venmo-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #3d95ce;
-  color: white;
-  text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 13px 30px;
-  border-radius: 2px;
-  border: 2px solid transparent;
-  transition: all 0.25s ease;
-}
+    .registry-btn {
+      padding: 14px 28px;
+    }
 
-.venmo-btn:hover {
-  background: #2e7ab5;
-  transform: translateY(-2px);
-  border-color: var(--blue);
-}
+    .registry-btn.amazon {
+      background: var(--blue);
+      color: white;
+    }
 
-@media (max-width: 980px) {
-  .gift-registry-grid {
-    grid-template-columns: 1fr;
-  }
+    .registry-btn.amazon:hover {
+      background: var(--ltblue);
+      transform: translateY(-2px);
+    }
 
-  .venmo-center-card {
-    order: -1;
-  }
-}
-    /* Star corners on QR */
+    .registry-btn.macys {
+      background: var(--red);
+      color: white;
+    }
+
+    .registry-btn.macys:hover {
+      background: #d63b4f;
+      transform: translateY(-2px);
+    }
+
+    .gift-heading {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .gift-sub {
+      font-size: 0.92rem;
+      line-height: 1.9;
+      color: var(--light);
+      max-width: 420px;
+      margin: 0 auto 30px;
+    }
+
+    .gift-section {
+      position: relative;
+      z-index: 1;
+      padding: 30px 24px 90px;
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .venmo-center-card {
+      border-top: 4px solid var(--ltblue);
+      align-items: center;
+      text-align: center;
+    }
+
+    .qr-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .qr-frame {
+      position: relative;
+      background: white;
+      padding: 16px;
+      border: 2px solid rgba(45, 74, 138, 0.12);
+      box-shadow: 0 4px 18px rgba(45, 74, 138, 0.08);
+    }
+
     .qr-star {
       position: absolute;
       width: 14px;
       height: 14px;
     }
+
     .qr-star.tl { top: -8px; left: -8px; }
     .qr-star.tr { top: -8px; right: -8px; }
     .qr-star.bl { bottom: -8px; left: -8px; }
     .qr-star.br { bottom: -8px; right: -8px; }
 
-    #qrcode canvas, #qrcode img { display: block; }
+    #qrcode canvas,
+    #qrcode img {
+      display: block;
+    }
 
     .venmo-handle {
       font-family: 'Dancing Script', cursive;
@@ -505,25 +478,20 @@
     }
 
     .venmo-btn {
-      display: inline-flex;
-      align-items: center;
       gap: 8px;
       background: #3d95ce;
       color: white;
-      text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
       padding: 13px 30px;
-      border-radius: 2px;
       border: 2px solid transparent;
-      transition: background 0.2s, transform 0.2s, border-color 0.2s;
     }
-    .venmo-btn:hover { background: #2e7ab5; transform: translateY(-2px); border-color: var(--blue); }
 
-    /* ── Footer ── */
+    .venmo-btn:hover {
+      background: #2e7ab5;
+      transform: translateY(-2px);
+      border-color: var(--blue);
+    }
+
     footer {
       position: relative;
       z-index: 1;
@@ -545,407 +513,320 @@
       font-weight: 700;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
     }
 
-    /* ── Animations ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @keyframes burst {
-      0%   { r: 0; opacity: 1; }
-      80%  { opacity: 0.8; }
-      100% { r: 60; opacity: 0; }
+    @media (max-width: 980px) {
+      .registry-grid,
+      .gift-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .venmo-center-card {
+        order: -1;
+      }
     }
 
     @media (max-width: 480px) {
-      .count-sep { display: none; }
+      .count-sep {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
+  <svg class="fireworks-bg" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <g transform="translate(120,110)">
+      <line x1="0" y1="0" x2="0" y2="-55" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="39" y2="-39" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="55" y2="0" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="39" y2="39" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="0" y2="55" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="-39" y2="39" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="-55" y2="0" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <line x1="0" y1="0" x2="-39" y2="-39" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
+      <circle cx="0" cy="-58" r="4" fill="#c0273a" opacity="0.3"/>
+      <circle cx="41" cy="-41" r="3" fill="#c0273a" opacity="0.25"/>
+      <circle cx="58" cy="0" r="4" fill="#c0273a" opacity="0.3"/>
+      <circle cx="41" cy="41" r="3" fill="#c0273a" opacity="0.25"/>
+      <circle cx="0" cy="58" r="4" fill="#c0273a" opacity="0.3"/>
+      <circle cx="-41" cy="41" r="3" fill="#c0273a" opacity="0.25"/>
+      <circle cx="-58" cy="0" r="4" fill="#c0273a" opacity="0.3"/>
+      <circle cx="-41" cy="-41" r="3" fill="#c0273a" opacity="0.25"/>
+    </g>
+    <g transform="translate(1050,90)">
+      <line x1="0" y1="0" x2="0" y2="-65" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="46" y2="-46" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="65" y2="0" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="46" y2="46" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="0" y2="65" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="-46" y2="46" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="-65" y2="0" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <line x1="0" y1="0" x2="-46" y2="-46" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
+      <circle cx="0" cy="-68" r="4" fill="#2d4a8a" opacity="0.28"/>
+      <circle cx="48" cy="-48" r="3" fill="#2d4a8a" opacity="0.22"/>
+      <circle cx="68" cy="0" r="4" fill="#2d4a8a" opacity="0.28"/>
+      <circle cx="48" cy="48" r="3" fill="#2d4a8a" opacity="0.22"/>
+      <circle cx="0" cy="68" r="4" fill="#2d4a8a" opacity="0.28"/>
+      <circle cx="-48" cy="48" r="3" fill="#2d4a8a" opacity="0.22"/>
+      <circle cx="-68" cy="0" r="4" fill="#2d4a8a" opacity="0.28"/>
+      <circle cx="-48" cy="-48" r="3" fill="#2d4a8a" opacity="0.22"/>
+    </g>
+  </svg>
 
-<!-- ── Decorative fireworks (SVG) ── -->
-<svg class="fireworks-bg" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-  <!-- Top-left firework (red) -->
-  <g transform="translate(120,110)">
-    <line x1="0" y1="0" x2="0" y2="-55"   stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="39" y2="-39"  stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="55" y2="0"    stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="39" y2="39"   stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="0" y2="55"    stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="-39" y2="39"  stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="-55" y2="0"   stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <line x1="0" y1="0" x2="-39" y2="-39" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
-    <circle cx="0" cy="-58" r="4" fill="#c0273a" opacity="0.3"/>
-    <circle cx="41" cy="-41" r="3" fill="#c0273a" opacity="0.25"/>
-    <circle cx="58" cy="0"   r="4" fill="#c0273a" opacity="0.3"/>
-    <circle cx="41" cy="41"  r="3" fill="#c0273a" opacity="0.25"/>
-    <circle cx="0" cy="58"   r="4" fill="#c0273a" opacity="0.3"/>
-    <circle cx="-41" cy="41" r="3" fill="#c0273a" opacity="0.25"/>
-    <circle cx="-58" cy="0"  r="4" fill="#c0273a" opacity="0.3"/>
-    <circle cx="-41" cy="-41" r="3" fill="#c0273a" opacity="0.25"/>
-  </g>
-  <!-- Top-right firework (blue) -->
-  <g transform="translate(1050,90)">
-    <line x1="0" y1="0" x2="0" y2="-65"   stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="46" y2="-46"  stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="65" y2="0"    stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="46" y2="46"   stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="0" y2="65"    stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="-46" y2="46"  stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="-65" y2="0"   stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <line x1="0" y1="0" x2="-46" y2="-46" stroke="#2d4a8a" stroke-width="2" opacity="0.22"/>
-    <circle cx="0"   cy="-68" r="4" fill="#2d4a8a" opacity="0.28"/>
-    <circle cx="48"  cy="-48" r="3" fill="#2d4a8a" opacity="0.22"/>
-    <circle cx="68"  cy="0"   r="4" fill="#2d4a8a" opacity="0.28"/>
-    <circle cx="48"  cy="48"  r="3" fill="#2d4a8a" opacity="0.22"/>
-    <circle cx="0"   cy="68"  r="4" fill="#2d4a8a" opacity="0.28"/>
-    <circle cx="-48" cy="48"  r="3" fill="#2d4a8a" opacity="0.22"/>
-    <circle cx="-68" cy="0"   r="4" fill="#2d4a8a" opacity="0.28"/>
-    <circle cx="-48" cy="-48" r="3" fill="#2d4a8a" opacity="0.22"/>
-  </g>
-  <!-- Small top-right (red) -->
-  <g transform="translate(880,50)">
-    <line x1="0" y1="0" x2="0"   y2="-38" stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="27"  y2="-27" stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="38"  y2="0"   stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="27"  y2="27"  stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="0"   y2="38"  stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="-27" y2="27"  stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="-38" y2="0"   stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-    <line x1="0" y1="0" x2="-27" y2="-27" stroke="#c0273a" stroke-width="1.5" opacity="0.2"/>
-  </g>
-  <!-- Small top-left (blue) -->
-  <g transform="translate(300,60)">
-    <line x1="0" y1="0" x2="0"   y2="-40" stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="28"  y2="-28" stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="40"  y2="0"   stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="28"  y2="28"  stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="0"   y2="40"  stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="-28" y2="28"  stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="-40" y2="0"   stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-    <line x1="0" y1="0" x2="-28" y2="-28" stroke="#5b7ec5" stroke-width="1.5" opacity="0.18"/>
-  </g>
-  <!-- Bottom corners fireworks -->
-  <g transform="translate(80,820)">
-    <line x1="0" y1="0" x2="0"   y2="-50" stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="35"  y2="-35" stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="50"  y2="0"   stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="35"  y2="35"  stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="0"   y2="50"  stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-35" y2="35"  stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-50" y2="0"   stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-35" y2="-35" stroke="#c0273a" stroke-width="1.5" opacity="0.15"/>
-  </g>
-  <g transform="translate(1120,800)">
-    <line x1="0" y1="0" x2="0"   y2="-50" stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="35"  y2="-35" stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="50"  y2="0"   stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="35"  y2="35"  stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="0"   y2="50"  stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-35" y2="35"  stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-50" y2="0"   stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-    <line x1="0" y1="0" x2="-35" y2="-35" stroke="#2d4a8a" stroke-width="1.5" opacity="0.15"/>
-  </g>
-  <!-- Scattered dots -->
-  <circle cx="200"  cy="200" r="3" fill="#c0273a" opacity="0.15"/>
-  <circle cx="950"  cy="150" r="2" fill="#2d4a8a" opacity="0.15"/>
-  <circle cx="600"  cy="80"  r="2" fill="#5b7ec5" opacity="0.12"/>
-  <circle cx="150"  cy="400" r="2" fill="#c0273a" opacity="0.1"/>
-  <circle cx="1100" cy="350" r="3" fill="#2d4a8a" opacity="0.1"/>
-  <!-- Stars scattered -->
-  <polygon points="600,30 603,38 612,38 605,43 608,52 600,47 592,52 595,43 588,38 597,38" fill="#2d4a8a" opacity="0.12"/>
-  <polygon points="200,350 202,356 208,356 203,360 205,366 200,362 195,366 197,360 192,356 198,356" fill="#c0273a" opacity="0.1"/>
-  <polygon points="1000,250 1002,256 1008,256 1003,260 1005,266 1000,262 995,266 997,260 992,256 998,256" fill="#5b7ec5" opacity="0.12"/>
-</svg>
-
-<!-- ── Hero ── -->
-<section class="hero">
-  <div class="tagline">
-    <span class="tagline-red">Red,</span>
-    <span class="tagline-white">White,</span>
-    <span class="tagline-wedo">&amp; We Do!</span>
-  </div>
-
-  <p class="invite-line">Please join us for the wedding of</p>
-
-  <h1 class="couple-names">Larisa &amp; John</h1>
-
-  <div class="stars-row">
-    <svg class="star red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star"     viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star big red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star"     viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-  </div>
-
-  <div class="details-hero">
-    <p class="detail-date">Thursday, July 2, 2026</p>
-    <p class="detail-times">
-      Reception 5:00–7:00 PM
-    </p>
-    <p class="detail-venue">
-      Edgemont East Stake Center<br/>
-      The Church of Jesus Christ of Latter-day Saints
-    </p>
-    <p class="detail-address">4300 N. Canyon Rd &nbsp;|&nbsp; Provo, UT</p>
-    <p class="detail-rsvp">RSVP 801-427-7887 (VM or Text)</p>
-  </div>
-</section>
-
-<!-- ── Countdown ── -->
-<section class="countdown-section">
-  <p class="section-eyebrow">★ Counting down the days ★</p>
-  <div class="countdown">
-    <div class="count-block">
-      <span class="count-number" id="cd-days">—</span>
-      <span class="count-label">Days</span>
+  <section class="hero">
+    <div class="tagline">
+      <span class="tagline-red">Red,</span>
+      <span class="tagline-white">White,</span>
+      <span class="tagline-wedo">&amp; We Do!</span>
     </div>
-    <span class="count-sep">·</span>
-    <div class="count-block">
-      <span class="count-number" id="cd-hours">—</span>
-      <span class="count-label">Hours</span>
+
+    <p class="invite-line">Please join us for the wedding of</p>
+
+    <h1 class="couple-names">Larisa &amp; John</h1>
+
+    <div class="stars-row">
+      <svg class="star red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star big red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star red" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
     </div>
-    <span class="count-sep">·</span>
-    <div class="count-block">
-      <span class="count-number" id="cd-mins">—</span>
-      <span class="count-label">Minutes</span>
-    </div>
-    <span class="count-sep">·</span>
-    <div class="count-block">
-      <span class="count-number" id="cd-secs">—</span>
-      <span class="count-label">Seconds</span>
-    </div>
-  </div>
-</section>
 
-<!-- ── Detail Cards ── -->
-<section class="details-section">
-  <p class="section-eyebrow" style="text-align:center; margin-bottom:28px;">★ The Details ★</p>
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon">🎇</div>
-      <div class="card-title">Reception</div>
-      <div class="card-body">5:00 – 7:00 PM<br/>Edgemont East Stake Center<br/>Celebrating with<br/>family &amp; friends</div>
-    </div>
-    <div class="card">
-      <div class="card-icon">📱</div>
-      <div class="card-title">RSVP</div>
-      <div class="card-body"><a href="tel:8014277887" style="color:var(--red);text-decoration:none;font-weight:600;">801-427-7887</a><br/>VM or Text<br/>We'd love to hear<br/>from you!</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ── Registries ── -->
-<section class="registry-section">
-  <p class="section-eyebrow">★ Our Registries ★</p>
-
-  <div class="registry-grid">
-
-    <!-- Amazon Registry -->
-    <div class="registry-card">
-      <div class="registry-icon">📦</div>
-
-      <h3 class="registry-name">Amazon Registry</h3>
-
-      <p class="registry-copy">
-        Browse our Amazon wedding registry for gifts to help us begin
-        our next adventure together.
+    <div class="details-hero">
+      <p class="detail-date">Thursday, July 2, 2026</p>
+      <p class="detail-times">Reception 5:00–7:00 PM</p>
+      <p class="detail-venue">
+        Edgemont East Stake Center<br />
+        The Church of Jesus Christ of Latter-day Saints
       </p>
-
-      <a
-        class="registry-btn amazon"
-        href="https://www.amazon.com/wedding/guest-view/1X95VYD6VK8ZW"
-        target="_blank"
-        rel="noopener"
-      >
-        View Amazon Registry
-      </a>
+      <p class="detail-address">4300 N. Canyon Rd &nbsp;|&nbsp; Provo, UT</p>
+      <p class="detail-rsvp">RSVP 801-427-7887 (VM or Text)</p>
     </div>
+  </section>
 
-    <!-- Macy's Registry -->
-    <div class="registry-card">
-      <div class="registry-icon">🛍️</div>
-
-      <h3 class="registry-name">Macy's Registry</h3>
-
-      <p class="registry-copy">
-        Explore our Macy’s wedding registry filled with home favorites,
-        kitchen essentials, and meaningful gifts for our new life together.
-      </p>
-
-      <a
-        class="registry-btn macys"
-        href="https://www.macys.com/registry/Larisa-Schumann-John-Kehr/1334256"
-        target="_blank"
-        rel="noopener"
-      >
-        View Macy's Registry
-      </a>
+  <section class="countdown-section">
+    <p class="section-eyebrow">★ Counting down the days ★</p>
+    <div class="countdown">
+      <div class="count-block">
+        <span class="count-number" id="cd-days">—</span>
+        <span class="count-label">Days</span>
+      </div>
+      <span class="count-sep">·</span>
+      <div class="count-block">
+        <span class="count-number" id="cd-hours">—</span>
+        <span class="count-label">Hours</span>
+      </div>
+      <span class="count-sep">·</span>
+      <div class="count-block">
+        <span class="count-number" id="cd-mins">—</span>
+        <span class="count-label">Minutes</span>
+      </div>
+      <span class="count-sep">·</span>
+      <div class="count-block">
+        <span class="count-number" id="cd-secs">—</span>
+        <span class="count-label">Seconds</span>
+      </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<!-- ── Gift / Venmo ── -->
-<section class="gift-section">
-  <h2 class="gift-heading">A Gift From the Heart</h2>
-  <p class="gift-sub">
-    Your presence is our greatest gift! For those who wish to contribute
-    to our new life together, we're grateful for your generosity.
-  </p>
-  <div class="qr-wrapper">
-    <div class="qr-frame">
-      <!-- star corner decorations -->
-      <svg class="qr-star tl" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-      <svg class="qr-star tr" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-      <svg class="qr-star bl" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-      <svg class="qr-star br" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-      <div id="qrcode"></div>
+  <section class="details-section">
+    <p class="section-eyebrow" style="text-align:center; margin-bottom:28px;">★ The Details ★</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎇</div>
+        <div class="card-title">Reception</div>
+        <div class="card-body">5:00 – 7:00 PM<br />Edgemont East Stake Center<br />Celebrating with<br />family &amp; friends</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <div class="card-title">RSVP</div>
+        <div class="card-body">
+          <a href="tel:8014277887" style="color:var(--red);text-decoration:none;font-weight:600;">801-427-7887</a><br />
+          VM or Text<br />
+          We'd love to hear<br />
+          from you!
+        </div>
+      </div>
     </div>
-    <p class="venmo-handle">@Larisa-Schumann</p>
-    <a class="venmo-btn" href="https://venmo.com/Larisa-Schumann" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.1 3.2 20.4 4.5 20.4 6.1c0 5-4.3 11.5-7.8 16H5.1L2 2.7l6.6-.6 1.7 13.4c1.6-2.6 3.5-6.7 3.5-9.5 0-1.5-.3-2.6-.7-3.5L19.4 2z"/></svg>
-      Send via Venmo
-    </a>
-  </div>
-</section>
+  </section>
 
-<!-- ── Footer ── -->
-<footer>
-  <div class="stars-row" style="margin-bottom:16px;">
-    <svg class="star" style="fill:rgba(255,255,255,0.4)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star big" style="fill:rgba(255,255,255,0.7)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-    <svg class="star" style="fill:rgba(255,255,255,0.4)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
-  </div>
-  <p class="footer-tagline">Larisa &amp; John</p>
-  <p class="footer-date">Red, White, &amp; We Do! &nbsp;·&nbsp; July 2, 2026</p>
-</footer>
+  <section class="registry-section">
+    <p class="section-eyebrow">★ Our Registries ★</p>
+    <div class="registry-grid">
+      <div class="registry-card">
+        <div class="registry-icon">📦</div>
+        <h3 class="registry-name">Amazon Registry</h3>
+        <p class="registry-copy">Browse our Amazon wedding registry for gifts to help us begin our next adventure together.</p>
+        <a class="registry-btn amazon" href="https://www.amazon.com/wedding/guest-view/1X95VYD6VK8ZW" target="_blank" rel="noopener">View Amazon Registry</a>
+      </div>
 
-<script>
+      <div class="venmo-center-card">
+        <h2 class="gift-heading">A Gift From the Heart</h2>
+        <p class="gift-sub">Your presence is our greatest gift! For those who wish to contribute to our new life together, we're grateful for your generosity.</p>
+        <div class="qr-wrapper">
+          <div class="qr-frame">
+            <svg class="qr-star tl" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg class="qr-star tr" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg class="qr-star bl" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <svg class="qr-star br" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+            <div id="qrcode"></div>
+          </div>
+          <p class="venmo-handle">@Larisa-Schumann</p>
+          <a class="venmo-btn" href="https://venmo.com/Larisa-Schumann" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M19.4 2C20.1 3.2 20.4 4.5 20.4 6.1c0 5-4.3 11.5-7.8 16H5.1L2 2.7l6.6-.6 1.7 13.4c1.6-2.6 3.5-6.7 3.5-9.5 0-1.5-.3-2.6-.7-3.5L19.4 2z"/>
+            </svg>
+            Send via Venmo
+          </a>
+        </div>
+      </div>
 
-  // ── Fireworks (first visit only) ────────────── new
+      <div class="registry-card">
+        <div class="registry-icon">🛍️</div>
+        <h3 class="registry-name">Macy's Registry</h3>
+        <p class="registry-copy">Explore our Macy’s wedding registry filled with home favorites, kitchen essentials, and meaningful gifts for our new life together.</p>
+        <a class="registry-btn macys" href="https://www.macys.com/registry/Larisa-Schumann-John-Kehr/1334256" target="_blank" rel="noopener">View Macy's Registry</a>
+      </div>
+    </div>
+  </section>
 
-  const SEEN = 'larisaandjohn_seen';
+  <footer>
+    <div class="stars-row" style="margin-bottom:16px;">
+      <svg class="star" style="fill:rgba(255,255,255,0.4)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star big" style="fill:rgba(255,255,255,0.7)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+      <svg class="star" style="fill:rgba(255,255,255,0.4)" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    </div>
+    <p class="footer-tagline">Larisa &amp; John</p>
+    <p class="footer-date">Red, White, &amp; We Do! &nbsp;·&nbsp; July 2, 2026</p>
+  </footer>
 
-  if (!localStorage.getItem(SEEN)) {
+  <script>
+    const SEEN = 'larisaandjohn_seen';
 
-    localStorage.setItem(SEEN, '1');
+    if (!localStorage.getItem(SEEN)) {
+      localStorage.setItem(SEEN, '1');
 
-    const fw = document.createElement('canvas');
+      const fw = document.createElement('canvas');
+      fw.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;transition:opacity 0.8s';
+      fw.width = window.innerWidth;
+      fw.height = window.innerHeight;
+      document.body.appendChild(fw);
 
-    fw.style.cssText = 'position:fixed;inset:0;z-index:9999;pointer-events:none;transition:opacity 0.8s';
+      const fc = fw.getContext('2d');
+      const W = fw.width, H = fw.height;
+      const PAL = ['#ff3333', '#ffffff', '#3355ff'];
 
-    fw.width = window.innerWidth; fw.height = window.innerHeight;
+      let pts = [], rks = [];
 
-    document.body.appendChild(fw);
+      function mkP(x, y, c, a, s) {
+        return { x, y, c, vx: Math.cos(a) * s, vy: Math.sin(a) * s, al: 1, dc: Math.random() * 0.018 + 0.014, sz: Math.random() * 3 + 1.5 };
+      }
 
-    const fc = fw.getContext('2d');
+      function mkR(x) {
+        return { x: x ?? W * 0.15 + Math.random() * W * 0.7, y: H + 10, ty: H * 0.08 + Math.random() * H * 0.4, sp: Math.random() * 3 + 11, tr: [] };
+      }
 
-    const W = fw.width, H = fw.height;
+      function explode(x, y) {
+        for (let i = 0; i < 110; i++) {
+          pts.push(mkP(x, y, PAL[i % 3], (i / 110) * Math.PI * 2, Math.random() * 5 + 2));
+        }
+      }
 
-    const PAL = ['#ff3333','#ffffff','#3355ff'];
+      function loop() {
+        requestAnimationFrame(loop);
+        fc.fillStyle = 'rgba(0,0,0,.15)';
+        fc.fillRect(0, 0, W, H);
 
-    let pts = [], rks = [];
+        rks = rks.filter(r => {
+          r.tr.push({ x: r.x, y: r.y });
+          if (r.tr.length > 10) r.tr.shift();
+          r.y -= r.sp;
 
-    function mkP(x,y,c,a,s){return{x,y,c,vx:Math.cos(a)*s,vy:Math.sin(a)*s,al:1,dc:Math.random()*.018+.014,sz:Math.random()*3+1.5}}
+          r.tr.forEach((t, i) => {
+            fc.beginPath();
+            fc.arc(t.x, t.y, (i / r.tr.length) * 2, 0, Math.PI * 2);
+            fc.fillStyle = `rgba(255,240,150,${(i / r.tr.length) * 0.6})`;
+            fc.fill();
+          });
 
-    function mkR(x){return{x:x??W*.15+Math.random()*W*.7,y:H+10,ty:H*.08+Math.random()*H*.4,sp:Math.random()*3+11,tr:[]}}
+          if (r.y <= r.ty) {
+            explode(r.x, r.y);
+            return false;
+          }
+          return true;
+        });
 
-    function explode(x,y){for(let i=0;i<110;i++){pts.push(mkP(x,y,PAL[i%3],(i/110)*Math.PI*2,Math.random()*5+2))}}
+        pts = pts.filter(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.06;
+          p.al -= p.dc;
 
-    function loop(){
+          fc.beginPath();
+          fc.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
+          fc.globalAlpha = Math.max(0, p.al);
+          fc.fillStyle = p.c;
+          fc.fill();
+          fc.globalAlpha = 1;
+          return p.al > 0;
+        });
+      }
 
-      requestAnimationFrame(loop);
+      [0, 120, 240, 360, 480, 600, 720, 840, 960, 1100].forEach(t => setTimeout(() => rks.push(mkR()), t));
+      loop();
 
-      fc.fillStyle='rgba(0,0,0,.15)'; fc.fillRect(0,0,W,H);
-
-      rks=rks.filter(r=>{r.tr.push({x:r.x,y:r.y});r.tr.length>10&&r.tr.shift();r.y-=r.sp;
-
-        r.tr.forEach((t,i)=>{fc.beginPath();fc.arc(t.x,t.y,(i/r.tr.length)*2,0,Math.PI*2);fc.fillStyle=`rgba(255,240,150,${(i/r.tr.length)*.6})`;fc.fill()});
-
-        if(r.y<=r.ty){explode(r.x,r.y);return false;} return true;});
-
-      pts=pts.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.06;p.al-=p.dc;
-
-        fc.beginPath();fc.arc(p.x,p.y,p.sz,0,Math.PI*2);fc.globalAlpha=Math.max(0,p.al);fc.fillStyle=p.c;fc.fill();fc.globalAlpha=1;return p.al>0;});
-
+      setTimeout(() => {
+        fw.style.opacity = '0';
+        setTimeout(() => fw.remove(), 900);
+      }, 2600);
     }
 
-    [0,120,240,360,480,600,720,840,960,1100].forEach(t=>setTimeout(()=>rks.push(mkR()),t));
+    const WEDDING_DATE = new Date('2026-07-02T17:00:00');
 
-    loop();
+    function updateCountdown() {
+      const diff = WEDDING_DATE - new Date();
 
-    setTimeout(()=>{ fw.style.opacity='0'; setTimeout(()=>fw.remove(),900); }, 2600);
+      if (diff <= 0) {
+        document.querySelector('.countdown-section').innerHTML =
+          '<p class="section-eyebrow" style="font-size:1.1rem;color:var(--red);">Today is the day! 🎇</p>';
+        return;
+      }
 
-  }
+      const days = Math.floor(diff / 864e5);
+      const hours = Math.floor((diff % 864e5) / 36e5);
+      const mins = Math.floor((diff % 36e5) / 6e4);
+      const secs = Math.floor((diff % 6e4) / 1e3);
 
-  // ─────────────────────────────────────────────
-
- 
-
-  // ── Countdown ──────────────────────────────────
-
-  const WEDDING_DATE = new Date('2026-07-02T17:00:00');
-
- 
-
-  function updateCountdown() {
-
-    const diff = WEDDING_DATE - new Date();
-
-    if (diff <= 0) {
-
-      document.querySelector('.countdown-section').innerHTML =
-
-        '<p class="section-eyebrow" style="font-size:1.1rem;color:var(--red);">Today is the day! 🎇</p>';
-
-      return;
-
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
     }
 
-    const days  = Math.floor(diff / 864e5);
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-    const hours = Math.floor((diff % 864e5) / 36e5);
-
-    const mins  = Math.floor((diff % 36e5) / 6e4);
-
-    const secs  = Math.floor((diff % 6e4) / 1e3);
-
-    document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
-
-    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
-
-    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
-
-    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
-
-  }
-
-  updateCountdown();
-
-  setInterval(updateCountdown, 1000);
-
- 
-
-  // ── QR Code ────────────────────────────────────
-
-  new QRCode(document.getElementById('qrcode'), {
-
-    text: 'https://venmo.com/Larisa-Schumann',
-
-    width: 180, height: 180,
-
-    colorDark: '#2d4a8a', colorLight: '#ffffff',
-
-    correctLevel: QRCode.CorrectLevel.H
-
-  });
-
-</script>
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://venmo.com/Larisa-Schumann',
+      width: 180,
+      height: 180,
+      colorDark: '#2d4a8a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
 </body>
 </html>
