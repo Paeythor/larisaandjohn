@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Wedding Playlist — Larisa & John</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    background: #030b1a;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .patriotic-strip {
+    position: relative;
+    z-index: 10;
+    height: 4px;
+    background: linear-gradient(90deg, #b22234 0% 33%, #fff 33% 66%, #3c3b6e 66% 100%);
+  }
+
+  .site-wrap {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* Back button */
+  .back-bar {
+    padding: 18px 0 0;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .back-btn:hover { background: rgba(232,201,122,0.2); color: #e8c97a; border-color: rgba(232,201,122,0.5); }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 36px 20px 28px;
+  }
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #e8c97a;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 6vw, 60px);
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+    margin-bottom: 6px;
+  }
+  .hero h1 span { color: #e8c97a; }
+  .hero p { font-size: 14px; color: rgba(255,255,255,0.55); letter-spacing: 2px; }
+
+  .glass {
+    background: rgba(5, 15, 45, 0.75);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+  }
+
+  /* Main layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  /* Player panel */
+  .player-panel { padding: 20px; }
+
+  .video-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 16px;
+  }
+  .video-wrap iframe {
+    width: 100%; height: 100%;
+    border: none; display: block;
+  }
+
+  .now-playing-bar {
+    margin-bottom: 14px;
+  }
+  .np-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+  .np-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: #e8c97a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .np-count { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .ctrl-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .ctrl-btn:hover { background: rgba(232,201,122,0.2); border-color: rgba(232,201,122,0.5); color: #e8c97a; transform: translateY(-1px); }
+  .ctrl-btn.active { background: rgba(232,201,122,0.25); border-color: #e8c97a; color: #e8c97a; }
+
+  /* Song list panel */
+  .list-panel { padding: 16px; }
+  .list-header {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .list-header span { color: #e8c97a; }
+
+  .song-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: calc(100vh - 260px);
+    min-height: 300px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .song-list::-webkit-scrollbar { width: 3px; }
+  .song-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+  .song-list::-webkit-scrollbar-thumb { background: rgba(232,201,122,0.35); border-radius: 2px; }
+
+  .song-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: rgba(255,255,255,0.04);
+  }
+  .song-row:hover { background: rgba(232,201,122,0.1); border-color: rgba(232,201,122,0.3); }
+  .song-row.playing {
+    background: rgba(232,201,122,0.18);
+    border-color: rgba(232,201,122,0.6);
+  }
+  .song-num {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    min-width: 20px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .song-row.playing .song-num { color: #e8c97a; }
+  .playing-icon {
+    display: none;
+    font-size: 10px;
+    color: #e8c97a;
+    flex-shrink: 0;
+    animation: pulse 1s ease-in-out infinite alternate;
+  }
+  .song-row.playing .playing-icon { display: block; }
+  .song-row.playing .song-num { display: none; }
+
+  @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+
+  .song-name {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+  .song-row.playing .song-name { color: #e8c97a; font-weight: 700; }
+
+  /* Loading shimmer */
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+    height: 13px;
+    display: inline-block;
+  }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="patriotic-strip"></div>
+
+<div class="site-wrap">
+
+  <div class="back-bar">
+    <a class="back-btn" href="https://paeythor.github.io/larisaandjohn/">← Back to Larisa &amp; John</a>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">★ Red, White &amp; We Do! ★</p>
+    <h1>Our <span>Wedding</span> Playlist</h1>
+    <p>July 2, 2026 · Provo, Utah</p>
+  </div>
+
+  <div class="layout">
+
+    <!-- LEFT: video + controls -->
+    <div class="glass player-panel">
+      <div class="video-wrap">
+        <iframe id="yt-player"
+          src="about:blank"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          title="Wedding song player">
+        </iframe>
+      </div>
+
+      <div class="now-playing-bar">
+        <div class="np-label">Now Playing</div>
+        <div class="np-title" id="np-title">Loading…</div>
+        <div class="np-count" id="np-count"></div>
+      </div>
+
+      <div class="controls">
+        <button class="ctrl-btn" onclick="prevSong()">⏮ Prev</button>
+        <button class="ctrl-btn" onclick="nextSong()">Next ⏭</button>
+        <button class="ctrl-btn active" id="btn-loop" onclick="toggleLoop()">🔁 Loop On</button>
+        <button class="ctrl-btn" onclick="shuffleSong()">🔀 Shuffle</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: song list -->
+    <div class="glass list-panel">
+      <div class="list-header">
+        Songs <span id="list-count">37 tracks</span>
+      </div>
+      <div class="song-list" id="song-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SONGS = [
+  { id: "66yUYlOx5KM" },
+  { id: "qVg5BQv7GAE" },
+  { id: "6pFw6rprqH8" },
+  { id: "D9vTKhASjDw" },
+  { id: "diCf5Sep5Fo" },
+  { id: "ZCCB7isjJsU" },
+  { id: "dgwItQgagyo" },
+  { id: "5mUAazM4FdI" },
+  { id: "eR-ha7hgTQs" },
+  { id: "8L6KGuTr9TI" },
+  { id: "E5dlr6Qx29U" },
+  { id: "GALgzk6S0m4" },
+  { id: "KXD21CaN0n4" },
+  { id: "YuO5PCgaaTM" },
+  { id: "P7JDWNv4Z8E" },
+  { id: "MH6TJU0qWoY" },
+  { id: "WVeJSvr3Yhw" },
+  { id: "DzFE9J8YTHc" },
+  { id: "cvChjHcABPA" },
+  { id: "DL8UJUo5XjY" },
+  { id: "d1IJmUAiFCE" },
+  { id: "aVhPBr3qtzc" },
+  { id: "4fDlWx7xmC4" },
+  { id: "GMReeWBE-f8" },
+  { id: "GemKqzILV4w" },
+  { id: "Qyhk4iAN04M" },
+  { id: "kdfGonQGFyc" },
+  { id: "Jsxpb5XdeBQ" },
+  { id: "oTambWhfLws" },
+  { id: "-HFCuBLAjXo" },
+  { id: "xrErp4OMwSM" },
+  { id: "zxpf0j60uu4" },
+  { id: "UZPSTJ7_htA" },
+  { id: "hbWBD1V0NrY" },
+  { id: "yJlwhQZsdtY" },
+  { id: "wmDBXYjNxds" },
+  { id: "-bzWSJG93P8" },
+].map((s, i) => ({ ...s, title: `Track ${i + 1}`, loaded: false }));
+
+let current = 0;
+let loopOn = true;
+let autoTimer = null;
+
+function buildList() {
+  const list = document.getElementById('song-list');
+  list.innerHTML = '';
+  SONGS.forEach((s, i) => {
+    const row = document.createElement('div');
+    row.className = 'song-row' + (i === current ? ' playing' : '');
+    row.id = 'row-' + i;
+    row.onclick = () => playSong(i);
+    row.innerHTML = `
+      <span class="playing-icon">♪</span>
+      <span class="song-num">${i + 1}</span>
+      <span class="song-name" id="sname-${i}">${s.loaded ? s.title : '<span class="shimmer" style="width:'+(60+Math.random()*80)+'px"></span>'}</span>
+    `;
+    list.appendChild(row);
+  });
+}
+
+function playSong(index) {
+  current = index;
+  const s = SONGS[index];
+  document.getElementById('yt-player').src =
+    `https://www.youtube-nocookie.com/embed/${s.id}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
+  document.getElementById('np-title').textContent = s.title;
+  document.getElementById('np-count').textContent = `Track ${index + 1} of ${SONGS.length}`;
+  document.querySelectorAll('.song-row').forEach((r, i) => r.classList.toggle('playing', i === index));
+  const row = document.getElementById('row-' + index);
+  if (row) row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  scheduleAutoAdvance();
+}
+
+function nextSong() { playSong((current + 1) % SONGS.length); }
+function prevSong() { playSong((current - 1 + SONGS.length) % SONGS.length); }
+function shuffleSong() { playSong(Math.floor(Math.random() * SONGS.length)); }
+
+function toggleLoop() {
+  loopOn = !loopOn;
+  const b = document.getElementById('btn-loop');
+  b.textContent = loopOn ? '🔁 Loop On' : '🔁 Loop Off';
+  b.classList.toggle('active', loopOn);
+  scheduleAutoAdvance();
+}
+
+function scheduleAutoAdvance() {
+  clearTimeout(autoTimer);
+  if (!loopOn) return;
+  autoTimer = setTimeout(() => { nextSong(); }, 4 * 60 * 1000);
+}
+
+// Fetch titles via oEmbed
+async function loadTitles() {
+  for (let i = 0; i < SONGS.length; i++) {
+    try {
+      const r = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${SONGS[i].id}&format=json`);
+      if (r.ok) {
+        const d = await r.json();
+        SONGS[i].title = d.title;
+        SONGS[i].loaded = true;
+        const el = document.getElementById('sname-' + i);
+        if (el) el.innerHTML = d.title;
+        if (i === current) {
+          document.getElementById('np-title').textContent = d.title;
+        }
+      }
+    } catch(e) {}
+  }
+}
+
+buildList();
+playSong(0);
+loadTitles();
+
+// ===== BACKGROUND CANVAS =====
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const stripeColors = ['#B22234','#FFFFFF','#B22234','#FFFFFF','#B22234','#FFFFFF','#B22234','#FFFFFF','#B22234','#FFFFFF','#B22234','#FFFFFF','#B22234'];
+
+const bgStars = Array.from({length:180}, () => ({
+  x: Math.random(), y: Math.random(),
+  r: 0.4 + Math.random() * 1.1,
+  a: 0.15 + Math.random() * 0.55
+}));
+
+const fireworks = [], particles = [];
+
+class Firework {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height + 10;
+    this.tx = 80 + Math.random() * (canvas.width - 160);
+    this.ty = 60 + Math.random() * (canvas.height * 0.42);
+    const d = Math.hypot(this.tx - this.x, this.ty - this.y);
+    const spd = 9 + Math.random() * 5;
+    this.vx = (this.tx - this.x) / d * spd;
+    this.vy = (this.ty - this.y) / d * spd;
+    this.hue = [0, 220, 45, 0, 220][Math.floor(Math.random() * 5)];
+    this.trail = [];
+    this.done = false;
+  }
+  update() {
+    this.trail.push({x: this.x, y: this.y});
+    if (this.trail.length > 12) this.trail.shift();
+    this.x += this.vx; this.y += this.vy;
+    if (Math.hypot(this.tx - this.x, this.ty - this.y) < 12) {
+      this.burst(); this.done = true;
+    }
+  }
+  burst() {
+    const n = 55 + Math.floor(Math.random() * 65);
+    for (let i = 0; i < n; i++) particles.push(new Particle(this.x, this.y, this.hue));
+  }
+  draw() {
+    this.trail.forEach((p, i) => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue},100%,72%,${i / this.trail.length * 0.9})`;
+      ctx.fill();
+    });
+  }
+}
+
+class Particle {
+  constructor(x, y, hue) {
+    this.x = x; this.y = y;
+    const a = Math.random() * Math.PI * 2;
+    const s = 1.2 + Math.random() * 5.5;
+    this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s;
+    this.alpha = 1;
+    this.decay = 0.011 + Math.random() * 0.018;
+    this.hue = hue + Math.random() * 40 - 20;
+    this.size = 1.2 + Math.random() * 2.2;
+  }
+  update() { this.vy += 0.07; this.x += this.vx; this.y += this.vy; this.vx *= 0.98; this.vy *= 0.98; this.alpha -= this.decay; }
+  draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fillStyle = `hsla(${this.hue},100%,68%,${Math.max(0,this.alpha)})`; ctx.fill(); }
+  get dead() { return this.alpha <= 0; }
+}
+
+let lastFW = 0;
+
+function drawFlag(t) {
+  const W = canvas.width, H = canvas.height;
+  const fW = Math.min(W * 0.95, 960);
+  const fH = fW * (10/19) * 0.52;
+  const fX = (W - fW) / 2;
+  const fY = H * 0.07;
+  const sH = fH / 13;
+  const amp = fH * 0.025;
+  const freq = (2 * Math.PI) / (fW * 0.52);
+  const phase = t * 0.00175;
+
+  ctx.save();
+  ctx.globalAlpha = 0.11;
+  for (let si = 0; si < 13; si++) {
+    const y0 = fY + si * sH, y1 = y0 + sH;
+    ctx.beginPath();
+    for (let x = 0; x <= fW; x += 5) {
+      const w = amp * Math.sin(freq * x + phase) * (x / fW);
+      x === 0 ? ctx.moveTo(fX+x, y0+w) : ctx.lineTo(fX+x, y0+w);
+    }
+    const wR = amp * Math.sin(freq * fW + phase);
+    ctx.lineTo(fX+fW, y1+wR);
+    for (let x = fW; x >= 0; x -= 5) {
+      const w = amp * Math.sin(freq * x + phase) * (x / fW);
+      ctx.lineTo(fX+x, y1+w);
+    }
+    ctx.closePath();
+    ctx.fillStyle = stripeColors[si];
+    ctx.fill();
+  }
+  const cW = fW * 0.40, cH = sH * 7;
+  ctx.globalAlpha = 0.16;
+  ctx.beginPath();
+  for (let x = 0; x <= cW; x += 5) {
+    const w = amp * Math.sin(freq * x + phase) * (x / fW);
+    x === 0 ? ctx.moveTo(fX+x, fY+w) : ctx.lineTo(fX+x, fY+w);
+  }
+  const wcR = amp * Math.sin(freq * cW + phase) * (cW / fW);
+  ctx.lineTo(fX+cW, fY+cH+wcR);
+  for (let x = cW; x >= 0; x -= 5) {
+    const w = amp * Math.sin(freq * x + phase) * (x / fW);
+    ctx.lineTo(fX+x, fY+cH+w);
+  }
+  ctx.closePath();
+  ctx.fillStyle = '#3C3B6E';
+  ctx.fill();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = '#fff';
+  const rows = [6,5,6,5,6,5,6,5,6];
+  let sy = fY + sH * 0.65;
+  for (let r = 0; r < 9; r++) {
+    const cols = rows[r];
+    const sx0 = fX + (r%2===0 ? cW/13 : cW/13*2);
+    const stepX = cW / (cols + (r%2===0 ? 1 : 1.5));
+    const wv = amp * Math.sin(freq * (sx0-fX) + phase) * ((sx0-fX)/fW);
+    for (let c = 0; c < cols; c++) {
+      const sx = sx0 + c * stepX;
+      drawStar(ctx, sx, sy + wv, 3.5);
+    }
+    sy += sH * 0.82;
+  }
+  ctx.restore();
+}
+
+function drawStar(ctx, cx, cy, r) {
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const a = (i*4*Math.PI/5) - Math.PI/2;
+    const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
+    i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.closePath(); ctx.fill();
+}
+
+function animate(ts) {
+  const grd = ctx.createLinearGradient(0,0,0,canvas.height);
+  grd.addColorStop(0,'#020810'); grd.addColorStop(0.6,'#0a1628'); grd.addColorStop(1,'#111e38');
+  ctx.fillStyle = grd; ctx.fillRect(0,0,canvas.width,canvas.height);
+  bgStars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x*canvas.width, s.y*canvas.height, s.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${s.a})`; ctx.fill();
+  });
+  drawFlag(ts);
+  if (ts - lastFW > 700 + Math.random() * 1400) { fireworks.push(new Firework()); lastFW = ts; }
+  for (let i = fireworks.length-1; i >= 0; i--) { fireworks[i].update(); fireworks[i].draw(); if (fireworks[i].done) fireworks.splice(i,1); }
+  for (let i = particles.length-1; i >= 0; i--) { particles[i].update(); particles[i].draw(); if (particles[i].dead) particles.splice(i,1); }
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>
