@@ -31,7 +31,6 @@
       overflow-x: hidden;
     }
 
-    /* ── FIREWORKS BACKGROUND ── */
     .fireworks-bg {
       position: fixed;
       inset: 0;
@@ -40,7 +39,6 @@
       overflow: hidden;
     }
 
-    /* ── HERO SECTION ── */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -147,17 +145,24 @@
       margin-bottom: 10px;
     }
 
-    /* ── PLAYLIST BUTTON (CENTERED) ── */
-    .playlist-section {
+    .actions-section {
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 0 24px 60px;
+      padding: 0 24px 50px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 36px;
     }
-    .playlist-btn-wrap {
+
+    .playlist-btn-wrap,
+    .wm-btn-wrap {
       opacity: 0;
       animation: fadeUp 0.9s ease 1.3s forwards;
     }
+
     .playlist-btn {
       display: inline-flex;
       align-items: center;
@@ -180,7 +185,83 @@
       box-shadow: 6px 6px 0 var(--blue);
     }
 
-    /* ── COUNTDOWN ── */
+    .wm-button {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 0;
+    }
+
+    .wm-icon-wrap {
+      width: 86px;
+      height: 86px;
+    }
+    .wm-icon-wrap svg { width: 100%; height: 100%; overflow: visible; }
+
+    .swing-group { transform-origin: 38px 30px; }
+
+    .wm-button:hover .swing-group,
+    .wm-button:focus-visible .swing-group {
+      animation: swingCut 0.7s ease-in-out;
+    }
+    .wm-button:hover .cake-top,
+    .wm-button:focus-visible .cake-top {
+      animation: cakeWobble 0.7s ease-in-out;
+    }
+
+    .blade {
+      filter: drop-shadow(0 0 3px var(--red)) drop-shadow(0 0 6px var(--blue));
+    }
+
+    @keyframes swingCut {
+      0%   { transform: rotate(-40deg); }
+      35%  { transform: rotate(-40deg); }
+      55%  { transform: rotate(50deg); }
+      100% { transform: rotate(-40deg); }
+    }
+    @keyframes cakeWobble {
+      0%, 50% { transform: translateX(0); }
+      60% { transform: translateX(-1.5px) rotate(-1deg); }
+      70% { transform: translateX(1.5px) rotate(1deg); }
+      80% { transform: translateX(-1px) rotate(-0.5deg); }
+      100% { transform: translateX(0); }
+    }
+
+    .wm-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 15px 28px;
+      border-radius: 2px;
+      box-shadow: 4px 4px 0 var(--red);
+      transition: all 0.2s ease;
+    }
+    .wm-button:hover .wm-label,
+    .wm-button:focus-visible .wm-label {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--red);
+    }
+
+    .wm-caption {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--light);
+      letter-spacing: 0.05em;
+      max-width: 220px;
+    }
+
     .countdown-section {
       position: relative;
       z-index: 1;
@@ -220,7 +301,6 @@
     }
     .count-sep { font-size: 3rem; color: var(--red); line-height: 1; align-self: flex-start; padding-top: 10px; }
 
-    /* ── DETAILS SECTION ── */
     .details-section {
       position: relative;
       z-index: 1;
@@ -257,7 +337,6 @@
     .card:nth-child(2) .card-title { color: var(--red); }
     .card-body { font-size: 0.88rem; font-weight: 300; color: var(--light); line-height: 1.9; }
 
-    /* ── REGISTRY SECTION ── */
     .registry-section {
       position: relative;
       z-index: 1;
@@ -325,7 +404,6 @@
     .qr-star.br { bottom: -6px; right: -6px; }
     .venmo-handle { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--blue); margin-bottom: 15px; }
 
-    /* ── FOOTER ── */
     footer {
       position: relative;
       z-index: 1;
@@ -349,7 +427,6 @@
 </head>
 
 <body>
-  <!-- Decorative Background SVGs -->
   <svg class="fireworks-bg" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
     <g transform="translate(120,110)">
       <line x1="0" y1="0" x2="0" y2="-55" stroke="#c0273a" stroke-width="2" opacity="0.25"/>
@@ -392,12 +469,44 @@
     </div>
   </section>
 
-  <section class="playlist-section">
+  <section class="actions-section">
     <div class="playlist-btn-wrap">
       <a class="playlist-btn" href="playlist.html">
         <span class="playlist-btn-icon">🎵</span>
         Our Wedding Playlist
       </a>
+    </div>
+
+    <div class="wm-btn-wrap">
+      <a class="wm-button" href="upload.html">
+        <div class="wm-icon-wrap">
+          <svg viewBox="0 0 100 100" role="img" aria-hidden="true">
+            <g class="cake">
+              <rect x="25" y="70" width="50" height="16" rx="2" fill="#ffffff" stroke="#2d4a8a" stroke-width="1.5"/>
+              <rect x="25" y="70" width="50" height="4" fill="#c0273a" opacity="0.85"/>
+              <g class="cake-top">
+                <rect x="32" y="56" width="36" height="16" rx="2" fill="#ffffff" stroke="#2d4a8a" stroke-width="1.5"/>
+                <rect x="32" y="56" width="36" height="4" fill="#5b7ec5" opacity="0.85"/>
+                <rect x="39" y="44" width="22" height="14" rx="2" fill="#ffffff" stroke="#2d4a8a" stroke-width="1.5"/>
+                <rect x="39" y="44" width="22" height="4" fill="#c0273a" opacity="0.85"/>
+                <line x1="50" y1="44" x2="50" y2="36" stroke="#2d4a8a" stroke-width="1.5"/>
+                <ellipse cx="50" cy="34" rx="2" ry="3" fill="#f0997b"/>
+              </g>
+            </g>
+            <g class="swing-group">
+              <path d="M38 20 C 30 24, 26 34, 28 46 L 48 46 C 50 34, 46 24, 38 20 Z" fill="#1a1a2e"/>
+              <path d="M38 14 C 32 14, 28 19, 28 25 C 28 29, 31 32, 35 32 L 41 32 C 45 32, 48 29, 48 25 C 48 19, 44 14, 38 14 Z" fill="#1a1a2e"/>
+              <ellipse cx="38" cy="25" rx="6" ry="7" fill="#0d0d16"/>
+              <path d="M46 30 L 60 22" stroke="#1a1a2e" stroke-width="6" stroke-linecap="round"/>
+              <rect x="58" y="19" width="6" height="8" rx="1" fill="#444" transform="rotate(-25 61 23)"/>
+              <line class="blade" x1="62" y1="20" x2="86" y2="2" stroke="#e24b4a" stroke-width="3.5" stroke-linecap="round"/>
+              <line class="blade" x1="62" y1="20" x2="86" y2="2" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            </g>
+          </svg>
+        </div>
+        <span class="wm-label">📸 Wedding Moments</span>
+      </a>
+      <p class="wm-caption">Share your photos &amp; videos from the big day</p>
     </div>
   </section>
 
@@ -438,7 +547,6 @@
     <p class="gift-sub">Your presence is our greatest gift! For those who wish to contribute to our new life together, we're grateful for your generosity.</p>
     
     <div class="registry-grid">
-      <!-- Amazon -->
       <div class="registry-card">
         <div class="registry-icon">📦</div>
         <h3 class="registry-name">Amazon Registry</h3>
@@ -446,7 +554,6 @@
         <a class="registry-btn amazon" href="https://www.amazon.com/wedding/guest-view/1X95VYD6VK8ZW" target="_blank">View Amazon Registry</a>
       </div>
 
-      <!-- Venmo -->
       <div class="registry-card venmo-card">
         <div class="registry-icon">💙</div>
         <h3 class="registry-name">Venmo</h3>
@@ -461,11 +568,10 @@
         <a class="venmo-btn" href="https://venmo.com/Larisa-Schumann" target="_blank">Send via Venmo</a>
       </div>
 
-      <!-- Macy's -->
       <div class="registry-card macys-card">
         <div class="registry-icon">🛍️</div>
         <h3 class="registry-name">Macy's Registry</h3>
-        <p class="registry-copy">Explore our Macy’s wedding registry filled with home favorites and kitchen essentials.</p>
+        <p class="registry-copy">Explore our Macy's wedding registry filled with home favorites and kitchen essentials.</p>
         <a class="registry-btn macys" href="https://www.macys.com/registry/Larisa-Schumann-John-Kehr/1334256" target="_blank">View Macy's Registry</a>
       </div>
     </div>
@@ -477,7 +583,6 @@
   </footer>
 
   <script>
-    // --- Fireworks Script ---
     const SEEN = 'larisaandjohn_seen';
     if (!localStorage.getItem(SEEN)) {
       localStorage.setItem(SEEN, '1');
@@ -511,7 +616,6 @@
       setTimeout(() => { fw.style.opacity = '0'; setTimeout(() => fw.remove(), 900); }, 3000);
     }
 
-    // --- Countdown Script ---
     const WEDDING_DATE = new Date('2026-07-02T17:00:00');
     function updateCountdown() {
       const diff = WEDDING_DATE - new Date();
@@ -526,7 +630,6 @@
     }
     updateCountdown(); setInterval(updateCountdown, 1000);
 
-    // --- QR Code ---
     new QRCode(document.getElementById('qrcode'), {
       text: 'https://venmo.com/Larisa-Schumann',
       width: 140, height: 140, colorDark: '#2d4a8a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H
