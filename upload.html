@@ -3,200 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Larisa &amp; John — Share Your Photos!</title>
+<title>Wedding Moments — Larisa &amp; John</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root {
-    --red: #b3262a;
-    --cream: #fdf8f1;
-    --navy: #1f2a44;
-    --gold: #c9a24b;
+    --red: #c0273a;
+    --blue: #2d4a8a;
+    --ltblue: #5b7ec5;
+    --offwhite: #f7f7fb;
+    --text: #1a1a2e;
+    --light: #6b7a9e;
   }
 
-  * { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    margin: 0;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    background: var(--cream);
-    color: var(--navy);
+    background: var(--offwhite);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text);
     text-align: center;
-    padding: 0 16px 60px;
+    overflow-x: hidden;
   }
 
-  header {
-    padding: 40px 16px 24px;
+  .page-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 70px;
   }
 
-  .banner {
-    font-size: 0.95rem;
-    letter-spacing: 2px;
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--red);
-    margin-bottom: 8px;
+    margin-bottom: 18px;
   }
 
   h1 {
-    font-size: 2.4rem;
-    margin: 0 0 6px;
-    color: var(--red);
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.6rem, 8vw, 4rem);
+    color: var(--blue);
+    margin-bottom: 8px;
   }
 
   .subtitle {
-    font-size: 1.05rem;
-    margin: 0 0 4px;
+    font-size: 0.95rem;
+    color: var(--light);
+    margin-bottom: 6px;
   }
 
   .date {
-    font-weight: bold;
-    margin-top: 6px;
-  }
-
-  .divider {
-    width: 80px;
-    height: 2px;
-    background: var(--gold);
-    margin: 24px auto;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 36px;
   }
 
   .intro {
-    max-width: 540px;
-    margin: 0 auto 28px;
-    font-size: 1.05rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--light);
+    max-width: 460px;
+    margin: 0 auto 40px;
   }
 
-  .qr-card {
+  .qr-frame {
+    position: relative;
     background: white;
-    border: 1px solid #eadfca;
-    border-radius: 16px;
-    padding: 24px;
-    max-width: 280px;
-    margin: 0 auto 32px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-  }
-
-  .qr-card p {
-    margin: 12px 0 0;
-    font-size: 0.9rem;
-    color: #555;
-  }
-
-  #qrcode {
-    display: flex;
-    justify-content: center;
-  }
-
-  .upload-wrap {
-    max-width: 640px;
-    margin: 0 auto;
-    background: white;
-    border: 1px solid #eadfca;
-    border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-  }
-
-  .upload-wrap h2 {
-    color: var(--red);
-    margin-top: 8px;
-    font-size: 1.3rem;
-  }
-
-  iframe.gform {
-    width: 100%;
-    height: 1100px;
-    border: 0;
-    border-radius: 8px;
-  }
-
-  .fallback-link {
+    border: 1px solid #eee;
+    margin: 0 auto 24px;
     display: inline-block;
-    margin: 24px auto 0;
-    background: var(--red);
+    box-shadow: 0 2px 16px rgba(45, 74, 138, 0.08);
+  }
+  .qr-star { position: absolute; width: 14px; height: 14px; }
+  .qr-star.tl { top: -7px; left: -7px; }
+  .qr-star.tr { top: -7px; right: -7px; }
+  .qr-star.bl { bottom: -7px; left: -7px; }
+  .qr-star.br { bottom: -7px; right: -7px; }
+
+  .scan-caption {
+    font-size: 0.8rem;
+    color: var(--light);
+    letter-spacing: 0.05em;
+    margin-bottom: 36px;
+  }
+
+  .form-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--blue) 0%, #1f3566 100%);
     color: white;
     text-decoration: none;
-    font-family: 'Georgia', serif;
-    font-size: 1rem;
-    padding: 12px 28px;
-    border-radius: 999px;
-    box-shadow: 0 3px 10px rgba(179,38,42,0.3);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 16px 38px;
+    border-radius: 2px;
+    box-shadow: 4px 4px 0 var(--red);
+    transition: all 0.2s ease;
   }
-
-  .fallback-link:hover { background: #921f22; }
-
-  footer {
-    margin-top: 50px;
-    font-size: 0.95rem;
-    color: var(--navy);
-  }
-
-  footer a {
-    color: var(--red);
+  .form-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--red);
   }
 
   .back-link {
     display: inline-block;
-    margin-top: 18px;
-    font-size: 0.9rem;
-    color: var(--navy);
+    margin-top: 44px;
+    font-size: 0.8rem;
+    color: var(--light);
     text-decoration: underline;
   }
+  .back-link:hover { color: var(--blue); }
+
+  footer {
+    text-align: center;
+    padding: 30px 24px 50px;
+    background: var(--blue);
+    color: white;
+  }
+  .footer-tagline { font-family: 'Dancing Script', cursive; font-size: 1.6rem; margin-bottom: 6px; }
+  .footer-date { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="banner">Red, White, &amp; We Do!</div>
-  <h1>Share Your Photos!</h1>
+<div class="page-wrap">
+  <p class="eyebrow">★ Red, White &amp; We Do ★</p>
+  <h1>Wedding Moments</h1>
   <p class="subtitle">Larisa &amp; John's Wedding Reception</p>
-  <p class="date">Thursday, July 2, 2026</p>
-</header>
+  <p class="date">July 2, 2026 · Provo, UT</p>
 
-<div class="divider"></div>
-
-<p class="intro">
-  We'd love to see the day through your eyes! Scan the QR code with your
-  phone, or use the form below right here on this page, to upload your
-  photos and videos from the reception. Everything you share will go
-  straight into our wedding photo album.
-</p>
-
-<div class="qr-card">
-  <div id="qrcode"></div>
-  <p>Scan to open this page on your phone</p>
-</div>
-
-<div class="upload-wrap">
-  <h2>📸 Upload Your Photos</h2>
-
-  <iframe class="gform"
-    src="https://docs.google.com/forms/d/e/1FAIpQLSepIKCqb9bqCQQOWEUclZ_N87jKjipySm5yxrFlT10ZUwR_KA/viewform?embedded=true">
-    Loading…
-  </iframe>
-
-  <p style="font-size:0.85rem;color:#777;margin-top:10px;">
-    Having trouble with the form above?
-    <a href="https://forms.gle/EHXd8QJwPoFbc48w7" target="_blank" rel="noopener">
-      Open it in a new tab instead
-    </a>.
+  <p class="intro">
+    We'd love to see our wedding day through your eyes. Scan the code
+    below with your phone, or tap the button, to upload your photos
+    and videos &mdash; they'll go straight into our shared wedding album.
   </p>
-</div>
 
-<a class="back-link" href="https://paeythor.github.io/larisaandjohn/">← Back to the wedding page</a>
+  <div class="qr-frame">
+    <svg class="qr-star tl" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <svg class="qr-star tr" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <svg class="qr-star bl" viewBox="0 0 24 24" fill="#2d4a8a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <svg class="qr-star br" viewBox="0 0 24 24" fill="#c0273a"><polygon points="12,2 15,9 22,9 16,14 18,21 12,17 6,21 8,14 2,9 9,9"/></svg>
+    <div id="qrcode"></div>
+  </div>
+  <p class="scan-caption">Scan to open the upload form on your phone</p>
+
+  <div>
+    <a class="form-btn" href="https://forms.gle/QoMVk3TBQsADDKn68" target="_blank" rel="noopener">
+      📸 Upload Your Photos
+    </a>
+  </div>
+
+  <a class="back-link" href="https://paeythor.github.io/larisaandjohn/">&larr; Back to Larisa &amp; John's wedding page</a>
+</div>
 
 <footer>
-  Larisa &amp; John · July 2, 2026 · Provo, UT
+  <p class="footer-tagline">Larisa &amp; John</p>
+  <p class="footer-date">July 2, 2026 &nbsp;&middot;&nbsp; Provo, UT</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // Generates a QR code pointing to THIS page's own URL,
-  // so it always works no matter where you host it.
   new QRCode(document.getElementById("qrcode"), {
-    text: window.location.href,
-    width: 200,
-    height: 200,
-    colorDark: "#1f2a44",
+    text: "https://forms.gle/QoMVk3TBQsADDKn68",
+    width: 180,
+    height: 180,
+    colorDark: "#2d4a8a",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
   });
